@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Book your recording session at Midtopia Studio - Professional recording studio in Wichita, KS">
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Midtopia Studio">
+    
+    <title>Midtopia Studio - Book Your Session</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gold: #F5B443;
+            --secondary-orange: #E89236;
+            --dark-orange: #C97B2E;
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-dark: #1a1a1a;
+            --gray-medium: #333333;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(180deg, var(--black) 0%, var(--gray-dark) 100%);
+            color: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--black);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(245, 180, 67, 0.2);
+        }
+        
+        .logo-container {
+            max-width: 250px;
+            margin: 0 auto 10px;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .tagline {
+            color: var(--primary-gold);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--gray-dark) 0%, var(--gray-medium) 100%);
+        }
+        
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--primary-gold);
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        
+        /* Services Cards */
+        .services {
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--primary-gold);
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, var(--gray-medium) 0%, var(--gray-dark) 100%);
+            border: 2px solid var(--primary-gold);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(245, 180, 67, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:active {
+            transform: scale(0.98);
+        }
+        
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-gold);
+        }
+        
+        .price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--white);
+            margin: 15px 0;
+        }
+        
+        .price span {
+            font-size: 18px;
+            color: #999;
+        }
+        
+        .service-card ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .service-card li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(245, 180, 67, 0.2);
+            color: #cccccc;
+        }
+        
+        .service-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .service-card li::before {
+            content: "✓ ";
+            color: var(--primary-gold);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-orange));
+            color: var(--black);
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px rgba(245, 180, 67, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(245, 180, 67, 0.3);
+        }
+        
+        /* Gallery Placeholder */
+        .gallery {
+            padding: 40px 20px;
+            background: var(--gray-dark);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--gray-medium), var(--gray-dark));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+            font-size: 14px;
+            border: 2px dashed rgba(245, 180, 67, 0.3);
+        }
+        
+        /* Info Section */
+        .info {
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .info-card {
+            background: var(--gray-medium);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-gold);
+        }
+        
+        .info-card h3 {
+            color: var(--primary-gold);
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .info-card p {
+            color: #cccccc;
+            line-height: 1.8;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .info-card li {
+            padding: 8px 0;
+            color: #cccccc;
+        }
+        
+        .info-card li::before {
+            content: "→ ";
+            color: var(--primary-gold);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--black);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 3px solid var(--primary-gold);
+        }
+        
+        .footer p {
+            color: #999;
+            margin: 5px 0;
+        }
+        
+        .footer a {
+            color: var(--primary-gold);
+            text-decoration: none;
+        }
+        
+        /* Install Prompt */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-orange));
+            color: var(--black);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .install-prompt.show {
+            display: block;
+        }
+        
+        .install-prompt p {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .install-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .install-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .install-yes {
+            background: var(--black);
+            color: var(--primary-gold);
+        }
+        
+        .install-no {
+            background: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .services {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                max-width: 1000px;
+            }
+            
+            .section-title {
+                grid-column: 1 / -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="Midtopia Studio">
+        </div>
+        <p class="tagline">Studio</p>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Book Your Session</h1>
+        <p>State-of-the-art recording facilities</p>
+        <p>Professional engineers on staff</p>
+        <div class="location">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg>
+            <span>424 S. Greenwood St, Wichita, KS</span>
+        </div>
+    </section>
+    
+    <!-- Services -->
+    <section class="services">
+        <h2 class="section-title">Choose Your Session</h2>
+        
+        <div class="service-card">
+            <h3>Studio with Engineer</h3>
+            <div class="price">$75<span>/hour</span></div>
+            <ul>
+                <li>One Professional recording engineer</li>
+                <li>Full studio access</li>
+                <li>Use of all in house equipment</li>
+            </ul>
+            <a href="#book" class="cta-button" onclick="scrollToBooking()">Book Now</a>
+        </div>
+        
+        <div class="service-card">
+            <h3>Solo Studio Time</h3>
+            <div class="price">$50<span>/hour</span></div>
+            <ul>
+                <li>Self-service studio access (must be pre-approved)</li>
+                <li>Full studio access</li>
+                <li>Use of all in house equipment</li>
+            </ul>
+            <a href="#book" class="cta-button" onclick="scrollToBooking()">Book Now</a>
+        </div>
+    </section>
+    
+    <!-- Gallery Placeholder -->
+    <section class="gallery">
+        <h2 class="section-title">Studio Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">Photo Coming Soon</div>
+            <div class="gallery-item">Photo Coming Soon</div>
+            <div class="gallery-item">Photo Coming Soon</div>
+            <div class="gallery-item">Photo Coming Soon</div>
+        </div>
+    </section>
+    
+    <!-- Info -->
+    <section class="info">
+        <div class="info-card">
+            <h3>How Booking Works</h3>
+            <ul>
+                <li>Select your preferred date & time below</li>
+                <li>Minimum 24 hours advance notice required</li>
+                <li>We'll review and confirm your request</li>
+                <li>You'll receive SMS confirmation</li>
+                <li>Payment due at session start</li>
+            </ul>
+        </div>
+        
+        <div class="info-card">
+            <h3>Payment Options</h3>
+            <p>We accept cash, and all major credit cards via Venmo. A 50% non-refundable deposit is due upon booking, and the remainder is due at the start of your session.</p>
+        </div>
+        
+        <div class="info-card">
+            <h3>Location</h3>
+            <p><strong>424 S. Greenwood St</strong><br>
+            Wichita, KS 67211</p>
+            <a href="https://maps.google.com/?q=424+S.+Greenwood+St,+Wichita,+KS+67211" 
+               target="_blank" 
+               class="cta-button" 
+               style="margin-top: 15px;">Get Directions</a>
+        </div>
+    </section>
+    
+    <!-- Booking Section -->
+    <section class="services" id="book" style="padding-top: 20px;">
+        <h2 class="section-title">Book Your Session Now</h2>
+        <div style="grid-column: 1 / -1; background: var(--gray-medium); padding: 40px 20px; border-radius: 20px; border: 2px solid var(--primary-gold);">
+            <p style="text-align: center; margin-bottom: 20px; color: #cccccc;">
+                Select your service and preferred time below:
+            </p>
+            
+            <!-- REPLACE THIS WITH YOUR CAL.COM EMBED CODE -->
+            <div style="text-align: center; padding: 60px 20px; background: var(--gray-dark); border-radius: 15px;">
+                <p style="color: var(--primary-gold); font-size: 18px; margin-bottom: 15px;">
+                    Cal.com Integration Goes Here
+                </p>
+                <p style="color: #999; margin-bottom: 20px;">
+                    After setting up Cal.com, paste your embed code here.<br>
+                    For now, use the button below to test:
+                </p>
+                <a href="https://cal.com/midtopia-studio" 
+                   target="_blank" 
+                   class="cta-button" 
+                   style="max-width: 300px; margin: 0 auto;">
+                    Open Booking Calendar
+                </a>
+            </div>
+            
+            <!-- ALTERNATIVE: Embedded Cal.com (uncomment after setup) -->
+            <!--
+            <div style="width: 100%; height: 600px;">
+                <iframe 
+                    src="https://cal.com/midtopia-studio" 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0"
+                    style="border-radius: 15px;">
+                </iframe>
+            </div>
+            -->
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Midtopia Studio</strong></p>
+        <p>424 S. Greenwood St, Wichita, KS 67211</p>
+        <p style="margin-top: 15px;">
+            <a href="/cdn-cgi/l/email-protection#89ebe6e6e2e0e7eec9e4e0edfde6f9e0e8fafdfcede0e6a7eae6e4"><span class="__cf_email__" data-cfemail="aac8c5c5c1c3c4cdeac7c3cedec5dac3cbd9dedfcec3c584c9c5c7">[email&#160;protected]</span></a>
+        </p>
+        <p style="margin-top: 20px; font-size: 12px;">
+            © 2026 Midtopia Studio. All rights reserved.
+        </p>
+    </footer>
+    
+    <!-- Install Prompt -->
+    <div class="install-prompt" id="installPrompt">
+        <p>Install Midtopia Studio app for quick access!</p>
+        <div class="install-buttons">
+            <button class="install-yes" onclick="installApp()">Install</button>
+            <button class="install-no" onclick="dismissInstall()">Maybe Later</button>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // PWA Install Prompt
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after 3 seconds
+            setTimeout(() => {
+                document.getElementById('installPrompt').classList.add('show');
+            }, 3000);
+        });
+        
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    deferredPrompt = null;
+                    document.getElementById('installPrompt').classList.remove('show');
+                });
+            }
+        }
+        
+        function dismissInstall() {
+            document.getElementById('installPrompt').classList.remove('show');
+            localStorage.setItem('installDismissed', 'true');
+        }
+        
+        // Don't show if previously dismissed
+        if (localStorage.getItem('installDismissed')) {
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+            });
+        }
+        
+        // Smooth scroll to booking
+        function scrollToBooking() {
+            document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Register Service Worker
+        if ('serviceWorker' in navigato

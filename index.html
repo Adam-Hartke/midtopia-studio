@@ -913,7 +913,7 @@
         // Submit to Google Sheets (webhook URL to be added)
         function submitToGoogleSheets(data, total, deposit) {
             // This will be configured with your Google Sheets webhook
-            const webhookURL = 'YOUR_GOOGLE_SHEETS_WEBHOOK_URL_HERE';
+            const webhookURL = 'https://script.google.com/macros/s/AKfycbz.../exec';
             
             const payload = {
                 timestamp: new Date().toISOString(),
@@ -929,8 +929,7 @@
                 status: 'Pending'
             };
             
-            // Uncomment when webhook is ready
-            /*
+            // Webhook is ready!
             fetch(webhookURL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -939,7 +938,6 @@
                 },
                 body: JSON.stringify(payload)
             }).catch(error => console.error('Error:', error));
-            */
             
             console.log('Would send to Google Sheets:', payload);
         }
